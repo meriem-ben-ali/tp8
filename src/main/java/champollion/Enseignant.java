@@ -1,5 +1,6 @@
 package champollion;
 
+<<<<<<< HEAD
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,6 +12,16 @@ public class Enseignant extends Personne {
     private Map<UE, ServicePrevu> lesEnseignements = new HashMap<>();
     private Set<Intervention> interventions = new HashSet<>();
     public static final  int HEURES_PREVUES_MINIMUM = 192;
+=======
+/**
+ * Un enseignant est caractérisé par les informations suivantes : son nom, son adresse email, et son service prévu,
+ * et son emploi du temps.
+ */
+public class Enseignant extends Personne {
+
+    // TODO : rajouter les autres méthodes présentes dans le diagramme UML
+
+>>>>>>> 1ba6895755d7385f2df81218854cf81599022562
     public Enseignant(String nom, String email) {
         super(nom, email);
     }
@@ -24,6 +35,7 @@ public class Enseignant extends Personne {
      *
      */
     public int heuresPrevues() {
+<<<<<<< HEAD
         Double heuresPrevues = 0.0;
         for (UE key:lesEnseignements.keySet()) {
             heuresPrevues = heuresPrevues +
@@ -32,6 +44,10 @@ public class Enseignant extends Personne {
                     lesEnseignements.get(key).getVolumeTP()*0.75;
         }
         return (int) Math.round(heuresPrevues);
+=======
+        // TODO: Implémenter cette méthode
+        throw new UnsupportedOperationException("Pas encore implémenté");
+>>>>>>> 1ba6895755d7385f2df81218854cf81599022562
     }
 
     /**
@@ -44,21 +60,31 @@ public class Enseignant extends Personne {
      *
      */
     public int heuresPrevuesPourUE(UE ue) {
+<<<<<<< HEAD
         Double heuresPrevuesPourUE = lesEnseignements.get(ue).getVolumeCM()*1.5 +
                 lesEnseignements.get(ue).getVolumeTD() +
                 lesEnseignements.get(ue).getVolumeTP()*0.75;
         return heuresPrevuesPourUE.intValue();
+=======
+        // TODO: Implémenter cette méthode
+        throw new UnsupportedOperationException("Pas encore implémenté");
+>>>>>>> 1ba6895755d7385f2df81218854cf81599022562
     }
 
     /**
      * Ajoute un enseignement au service prévu pour cet enseignant
      *
      * @param ue l'UE concernée
+<<<<<<< HEAD
      * @param volumeCM le volume d'heures de cours magitral
+=======
+     * @param volumeCM le volume d'heures de cours magistral
+>>>>>>> 1ba6895755d7385f2df81218854cf81599022562
      * @param volumeTD le volume d'heures de TD
      * @param volumeTP le volume d'heures de TP
      */
     public void ajouteEnseignement(UE ue, int volumeCM, int volumeTD, int volumeTP) {
+<<<<<<< HEAD
         if (volumeCM < 0 || volumeTD < 0 || volumeTP < 0) throw new IllegalArgumentException("On ne peut pas ajouter de valeur négative");
         if (this.lesEnseignements.containsKey(ue)){
             ServicePrevu servicePrevu = lesEnseignements.get(ue);
@@ -124,3 +150,10 @@ public class Enseignant extends Personne {
         this.interventions.add(inter);
     }
 }
+=======
+        // TODO: Implémenter cette méthode
+        throw new UnsupportedOperationException("Pas encore implémenté");
+    }
+
+}
+>>>>>>> 1ba6895755d7385f2df81218854cf81599022562

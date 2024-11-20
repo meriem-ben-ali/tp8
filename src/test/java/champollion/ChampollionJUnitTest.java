@@ -1,30 +1,44 @@
 package champollion;
 
 import org.junit.jupiter.api.*;
+<<<<<<< HEAD
 
 import java.util.Date;
 
+=======
+>>>>>>> 1ba6895755d7385f2df81218854cf81599022562
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ChampollionJUnitTest {
 	Enseignant untel;
 	UE uml, java;
+<<<<<<< HEAD
 	Intervention inter_uml_cm, inter_java_cm;
 	Salle uneSalle;
 
+=======
+		
+>>>>>>> 1ba6895755d7385f2df81218854cf81599022562
 	@BeforeEach
 	public void setUp() {
 		untel = new Enseignant("untel", "untel@gmail.com");
 		uml = new UE("UML");
+<<<<<<< HEAD
 		java = new UE("Programmation en java");
 		uneSalle = new Salle("uneSalle", 999);
 		inter_uml_cm = new Intervention(new Date(), 12, 8, untel, uml, TypeIntervention.CM, uneSalle);
 		inter_java_cm = new Intervention(new Date(), 10, 8, untel, java, TypeIntervention.CM, uneSalle);
 	}
+=======
+		java = new UE("Programmation en java");		
+	}
+	
+>>>>>>> 1ba6895755d7385f2df81218854cf81599022562
 
 	@Test
 	public void testNouvelEnseignantSansService() {
 		assertEquals(0, untel.heuresPrevues(),
+<<<<<<< HEAD
 				"Un nouvel enseignant doit avoir 0 heures prévues");
 	}
 
@@ -90,3 +104,25 @@ public class ChampollionJUnitTest {
 	}
 
 }
+=======
+                        "Un nouvel enseignant doit avoir 0 heures prévues");
+	}
+	
+	@Test
+	public void testAjouteHeures() {
+                // 10h TD pour UML
+		untel.ajouteEnseignement(uml, 0, 10, 0);
+
+		assertEquals(10, untel.heuresPrevuesPourUE(uml),
+                        "L'enseignant doit maintenant avoir 10 heures prévues pour l'UE 'uml'");
+
+		// 20h TD pour UML
+        untel.ajouteEnseignement(uml, 0, 20, 0);
+                
+		assertEquals(10 + 20, untel.heuresPrevuesPourUE(uml),
+                         "L'enseignant doit maintenant avoir 30 heures prévues pour l'UE 'uml'");		
+		
+	}
+	
+}
+>>>>>>> 1ba6895755d7385f2df81218854cf81599022562

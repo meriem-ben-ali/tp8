@@ -1,6 +1,7 @@
 package champollion;
 
 public class ServicePrevu {
+<<<<<<< HEAD
     private int volumeCM;
     private int volumeTD;
     private int volumeTP;
@@ -35,3 +36,8 @@ public class ServicePrevu {
         this.volumeTP = this.volumeTP + volumeTP;
     }
 }
+=======
+	// TODO : implémenter cette classe
+
+}
+>>>>>>> 1ba6895755d7385f2df81218854cf81599022562

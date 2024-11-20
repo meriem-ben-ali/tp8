@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1ba6895755d7385f2df81218854cf81599022562
 package champollion;
 
 /**
@@ -32,4 +36,8 @@ public abstract class Personne {
     public String getEmail() {
         return email;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 1ba6895755d7385f2df81218854cf81599022562
