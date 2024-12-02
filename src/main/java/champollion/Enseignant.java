@@ -1,27 +1,13 @@
 package champollion;
 
-<<<<<<< HEAD
-
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 public class Enseignant extends Personne {
+    private HashSet<Intervention> intervensions = new HashSet<Intervention>();
 
-    private Map<UE, ServicePrevu> lesEnseignements = new HashMap<>();
-    private Set<Intervention> interventions = new HashSet<>();
-    public static final  int HEURES_PREVUES_MINIMUM = 192;
-=======
-/**
- * Un enseignant est caractérisé par les informations suivantes : son nom, son adresse email, et son service prévu,
- * et son emploi du temps.
- */
-public class Enseignant extends Personne {
+    private HashSet<ServicePrevu> servicePrevus = new HashSet<ServicePrevu>();
 
-    // TODO : rajouter les autres méthodes présentes dans le diagramme UML
-
->>>>>>> 1ba6895755d7385f2df81218854cf81599022562
     public Enseignant(String nom, String email) {
         super(nom, email);
     }
@@ -32,22 +18,13 @@ public class Enseignant extends Personne {
      * "équivalent TD"
      *
      * @return le nombre total d'heures "équivalent TD" prévues pour cet enseignant, arrondi à l'entier le plus proche
-     *
      */
     public int heuresPrevues() {
-<<<<<<< HEAD
-        Double heuresPrevues = 0.0;
-        for (UE key:lesEnseignements.keySet()) {
-            heuresPrevues = heuresPrevues +
-                    lesEnseignements.get(key).getVolumeCM()*1.5 +
-                    lesEnseignements.get(key).getVolumeTD() +
-                    lesEnseignements.get(key).getVolumeTP()*0.75;
+        int result = 0;
+        for (ServicePrevu s : servicePrevus) {
+            result += heuresPrevuesPourUE(s.getUe());
         }
-        return (int) Math.round(heuresPrevues);
-=======
-        // TODO: Implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
->>>>>>> 1ba6895755d7385f2df81218854cf81599022562
+        return result;
     }
 
     /**
@@ -57,103 +34,99 @@ public class Enseignant extends Personne {
      *
      * @param ue l'UE concernée
      * @return le nombre total d'heures "équivalent TD" prévues pour cet enseignant, arrondi à l'entier le plus proche
-     *
      */
     public int heuresPrevuesPourUE(UE ue) {
-<<<<<<< HEAD
-        Double heuresPrevuesPourUE = lesEnseignements.get(ue).getVolumeCM()*1.5 +
-                lesEnseignements.get(ue).getVolumeTD() +
-                lesEnseignements.get(ue).getVolumeTP()*0.75;
-        return heuresPrevuesPourUE.intValue();
-=======
-        // TODO: Implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
->>>>>>> 1ba6895755d7385f2df81218854cf81599022562
+        float result = 0;
+        for (ServicePrevu s : servicePrevus) {
+            if (s.getUe().equals(ue)) {
+                result += equivalentTD(TypeIntervention.CM, s.getVolumeCM())
+                        + equivalentTD(TypeIntervention.TD, s.getVolumeTD())
+                        + equivalentTD(TypeIntervention.TP, s.getVolumeTP());
+            }
+        }
+        return Math.round(result);
+    }
+
+    public float equivalentTD(TypeIntervention type, int val) {
+        float result = 0;
+        if (type.equals(TypeIntervention.CM)) {
+            result += val * 1.5;
+        } else if (type.equals(TypeIntervention.TD)) {
+            result += val;
+        } else if (type.equals(TypeIntervention.TP)) {
+            result += val * 0.75;
+        }
+        return result;
     }
 
     /**
      * Ajoute un enseignement au service prévu pour cet enseignant
      *
-     * @param ue l'UE concernée
-<<<<<<< HEAD
+     * @param ue       l'UE concernée
      * @param volumeCM le volume d'heures de cours magitral
-=======
-     * @param volumeCM le volume d'heures de cours magistral
->>>>>>> 1ba6895755d7385f2df81218854cf81599022562
      * @param volumeTD le volume d'heures de TD
      * @param volumeTP le volume d'heures de TP
      */
     public void ajouteEnseignement(UE ue, int volumeCM, int volumeTD, int volumeTP) {
-<<<<<<< HEAD
-        if (volumeCM < 0 || volumeTD < 0 || volumeTP < 0) throw new IllegalArgumentException("On ne peut pas ajouter de valeur négative");
-        if (this.lesEnseignements.containsKey(ue)){
-            ServicePrevu servicePrevu = lesEnseignements.get(ue);
-            servicePrevu.addVolumeCM(volumeCM);
-            servicePrevu.addVolumeTD(volumeTD);
-            servicePrevu.addVolumeTP(volumeTP);
-            return;
+        if (volumeCM < 0 || volumeTD < 0 || volumeTP < 0) {
+            throw new IllegalArgumentException("Volume must be positive");
         }
-        this.lesEnseignements.put(ue, new ServicePrevu(volumeCM, volumeTD, volumeTP));
-    }
 
-    /**
-     * Vérifie si un enseignant est en sous-service: il est en sous-service si son équivalant heure TD est en dessous
-     * de HEURES_PREVUES_MINIMUM
-     * @return un booléen répondant à la fonction
-     */
-    public boolean enSousService(){
-        return this.heuresPrevues() < HEURES_PREVUES_MINIMUM;
-    }
+        boolean ueExist = false;
 
-    /**
-     * Calcule le reste d'heures à planifié d'une UE et d'un type d'intervention
-     * @param ue une unité d'enseignement
-     * @param type un type d'intervention
-     * @return une durée calculé
-     */
-    public int resteAPlanifier(UE ue, TypeIntervention type){
-        if (this.lesEnseignements.containsKey(ue)){
-            int heuresPlanifiées = 0;
-            switch (type){
-                case CM:
-                    for (Intervention inter: interventions) {
-                        if (inter.getTypeIntervention() == TypeIntervention.CM){
-                            heuresPlanifiées += inter.getDuree();
-                        }
-                    }
-                    return this.lesEnseignements.get(ue).getVolumeCM() - heuresPlanifiées;
-                case TD:
-                    for (Intervention inter: interventions) {
-                        if (inter.getTypeIntervention() == TypeIntervention.TD){
-                            heuresPlanifiées += inter.getDuree();
-                        }
-                    }
-                    return this.lesEnseignements.get(ue).getVolumeTD() - heuresPlanifiées;
-                case TP:
-                    for (Intervention inter: interventions) {
-                        if (inter.getTypeIntervention() == TypeIntervention.TP){
-                            heuresPlanifiées += inter.getDuree();
-                        }
-                    }
-                    return this.lesEnseignements.get(ue).getVolumeTP() - heuresPlanifiées;
+        for (ServicePrevu s : servicePrevus) {
+            if (s.getUe().equals(ue)) {
+                ueExist = true;
+                s.addToCM(volumeCM);
+                s.addToTD(volumeTD);
+                s.addToTP(volumeTP);
             }
         }
-        return 0;
+        if (!ueExist) {
+            servicePrevus.add(new ServicePrevu(volumeCM, volumeTD, volumeTP, ue));
+        }
     }
 
-    /**
-     * ajoute une intervention pour un enseignant
-     * @param inter une intervention
-     */
-    public void ajouteIntervention(Intervention inter){
-        if (inter.getDuree() > resteAPlanifier(inter.getUe(), inter.getTypeIntervention())) throw new IllegalArgumentException("On ne peut pas dépasser le nombre d'heures prévues");
-        this.interventions.add(inter);
-    }
-}
-=======
-        // TODO: Implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+    public Boolean enSousService() {
+        if (heuresPrevues() <= 192) {
+            return true;
+        }
+        return false;
     }
 
+    public ServicePrevu getServicePrevuFromUE(UE ue) {
+        for (ServicePrevu s : servicePrevus) {
+            if (s.getUe().equals(ue)) {
+                return s;
+            }
+        }
+        return null;
+    }
+
+    public HashSet<ServicePrevu> getServicePrevus() {
+        return servicePrevus;
+    }
+
+    public void ajouteIntervention(Intervention inter) {
+        if (getServicePrevuFromUE(inter.getUe()) == null) {
+            throw new IllegalArgumentException("L'UE ne fait pas partie des enseignements");
+        }
+        intervensions.add(inter);
+    }
+
+
+    public int resteAPlanifier(UE ue, TypeIntervention type) {
+        int planifiee = 0;
+        for (Intervention i : intervensions) {
+            if (i.getUe().equals(ue) && i.getType().equals(type)) {
+                planifiee += i.getDuree();
+            }
+        }
+        int nbrTot = getServicePrevuFromUE(ue).getServiceType(type);
+        return nbrTot - planifiee;
+    }
+
+    public HashSet<Intervention> getIntervensions() {
+        return intervensions;
+    }
 }
->>>>>>> 1ba6895755d7385f2df81218854cf81599022562
