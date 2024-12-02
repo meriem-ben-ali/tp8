@@ -5,21 +5,20 @@ import java.util.Date;
 public class Intervention {
     private Date debut;
     private int duree;
-    private boolean annulee = false;
-    private int heureDebut;
+    private Boolean annulee = false;
+    //private int heureDebut;
+    private Salle salle;
+    private TypeIntervention type;
     private Enseignant enseignant;
     private UE ue;
-    private TypeIntervention typeIntervention;
-    private Salle salle;
 
-    public Intervention(Date debut, int duree, int heureDebut, Enseignant enseignant, UE ue, TypeIntervention typeIntervention, Salle salle) {
+    public Intervention(Date debut, int duree, Salle salle, TypeIntervention type, Enseignant enseignant, UE ue) {
         this.debut = debut;
         this.duree = duree;
-        this.heureDebut = heureDebut;
+        this.salle = salle;
+        this.type = type;
         this.enseignant = enseignant;
         this.ue = ue;
-        this.typeIntervention = typeIntervention;
-        this.salle = salle;
     }
 
     public Date getDebut() {
@@ -30,27 +29,23 @@ public class Intervention {
         return duree;
     }
 
-    public boolean isAnnulee() {
+    public Boolean getAnnulee() {
         return annulee;
     }
 
-    public int getHeureDebut() {
-        return heureDebut;
+    public Salle getSalle() {
+        return salle;
+    }
+
+    public TypeIntervention getType() {
+        return type;
     }
 
     public Enseignant getEnseignant() {
         return enseignant;
     }
 
-    public TypeIntervention getTypeIntervention() {
-        return typeIntervention;
-    }
-
     public UE getUe() {
         return ue;
-    }
-
-    public void setSalle(Salle salle) {
-        this.salle = salle;
     }
 }
