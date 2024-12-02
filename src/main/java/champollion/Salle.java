@@ -16,4 +16,12 @@ public class Salle {
     public int getCapacite() {
         return capacite;
     }
+
+    @Override
+    public String toString() {
+        return "Salle{" +
+                "intitule='" + intitule + '\'' +
+                ", capacite=" + capacite +
+                '}';
+    }
 }
